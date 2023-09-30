@@ -1,0 +1,45 @@
+DEF[JDK_MAJOR_VER]=	18
+DEF[JDK_MINOR_VER]=	0
+DEF[JDK_PATCH_VER]=	2
+DEF[JDK_SUBPATCH]=	1
+DEF[JDK_BUILD_NUM]=	0
+DEF[PORTVERSION]=	${JDK_MAJOR_VER}.${JDK_MINOR_VER}.${JDK_PATCH_VER}
+DEF[RELEASE_TAG]=	jdk-${JDK_MAJOR_VER}.${JDK_MINOR_VER}.${JDK_PATCH_VER}.${JDK_SUBPATCH}+${JDK_BUILD_NUM}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openjdk${JDK_MAJOR_VER}
+VERSION=		${PORTVERSION}
+KEYWORDS=		java devel
+VARIANTS=		standard
+SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
+HOMEPAGE=		https://openjdk.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/battleblow:jdk18u:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		java/openjdk18
+
+BUILD_DEPENDS=		alsa-lib:dev:standard
+			fontconfig:dev:standard
+			freetype:dev:standard
+			harfbuzz:dev:standard
+			lcms2:dev:standard
+BUILDRUN_DEPENDS=	alsa-lib:primary:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			harfbuzz:primary:standard
+			lcms2:primary:standard
+RUN_DEPENDS=		xorg-truetype-fonts:single:standard
+
+USES=			cpe gif png
+XORG_COMPONENTS=	x11 xext x1 xrandr xrender xt xtst
+CPE_VENDOR=		oracle
+CPE_PRODUCT=		openjdk${JDK_MAJOR_VER}
+
