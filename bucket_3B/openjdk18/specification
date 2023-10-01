@@ -1,13 +1,15 @@
 DEF[JDK_MAJOR_VER]=	18
 DEF[JDK_MINOR_VER]=	0
 DEF[JDK_PATCH_VER]=	2
-DEF[JDK_SUBPATCH]=	1
-DEF[JDK_BUILD_NUM]=	0
+DEF[JDK_BUILD_NUM]=	9
 DEF[PORTVERSION]=	${JDK_MAJOR_VER}.${JDK_MINOR_VER}.${JDK_PATCH_VER}
-DEF[RELEASE_TAG]=	jdk-${JDK_MAJOR_VER}.${JDK_MINOR_VER}.${JDK_PATCH_VER}.${JDK_SUBPATCH}+${JDK_BUILD_NUM}
+DEF[VERSION_STRING]=	${PORTVERSION}+${JDK_BUILD_NUM}-1
+DEF[RELEASE_TAG]=	jdk-${VERSION_STRING}
+DEF[JDK_BUG_URL]=	https://github.com/Ravenports/ravensource/issues
+DEF[NAMEBASE]=		openjdk${JDK_MAJOR_VER}
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		openjdk${JDK_MAJOR_VER}
+NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		java devel
 VARIANTS=		standard
@@ -15,14 +17,34 @@ SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
 HOMEPAGE=		https://openjdk.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main bootfbsd orphans
 SITES[main]=		GITHUB/battleblow:jdk18u:${RELEASE_TAG}
+SITES[bootfbsd]=	FREELOCAL/glewis/bootstrap-openjdk17
+SITES[orphans]=		https://leaf.dragonflybsd.org/~marino/orphaned-distfiles/
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		bootstrap-openjdk17-amd64-17.0.1.12.1.tar.xz:bootfbsd
+DISTFILE[3]=		freebsd13-javac.tar.gz:orphans
+DF_INDEX=		1
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary legal man examples
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
+OPTIONS_STANDARD=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
+OPTGROUP_RADIO=		SYSTEM
+OPTDESCR[SYSTEM]=	System and architecture selection
+OPTGROUP[SYSTEM]=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
+
+OPT_ON[freebsd]=	FREEBSD
+OPT_ON[midnightbsd]=	FREEBSD
+OPT_ON[dragonfly]=	DRAGONFLY
+OPT_ON[netbsd]=		NETBSD
+OPT_ON[linux]=		LINUX
+OPT_ON[sunos]=		UNSUPPORTED
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		java/openjdk18
 
@@ -31,15 +53,108 @@ BUILD_DEPENDS=		alsa-lib:dev:standard
 			freetype:dev:standard
 			harfbuzz:dev:standard
 			lcms2:dev:standard
+			bash:primary:standard
+			zip:single:standard
+			cups:dev:standard
+			ccache:primary:standard
 BUILDRUN_DEPENDS=	alsa-lib:primary:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
 			harfbuzz:primary:standard
 			lcms2:primary:standard
+			cups:primary:standard
 RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 
-USES=			cpe gif png
-XORG_COMPONENTS=	x11 xext x1 xrandr xrender xt xtst
+USES=			cpe jpeg gif png gmake pkgconfig iconv zlib
+			autoreconf:build
+XORG_COMPONENTS=	x11 xext xi xrandr xrender xt xtst
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		openjdk${JDK_MAJOR_VER}
+MUST_CONFIGURE=		yes
+SKIP_CCACHE=		yes
+LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/${NAMEBASE}/lib/server
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--openjdk-target={{CONFIGURE_TARGET}}
+			--disable-javac-server
+			--disable-warnings-as-errors
+			--with-alsa={{LOCALBASE}}
+			--with-cups={{LOCALBASE}}
+			--with-fontconfig={{LOCALBASE}}
+			--with-freetype=system
+			--with-freetype-include={{LOCALBASE}}/include
+			--with-freetype-lib={{LOCALBASE}}/lib
+			--with-libjpeg=system
+			--with-giflib=system
+			--with-giflib-include={{LOCALBASE}}/include
+			--with-giflib-lib={{LOCALBASE}}/lib
+			--with-harfbuzz=system
+			--with-libpng=system
+			--with-zlib=system
+			--with-lcms=system
+			--x-includes={{LOCALBASE}}/include
+			--x-libraries={{LOCALBASE}}/lib
+			--with-version-string=${VERSION_STRING}
+			--with-native-debug-symbols=none
+			--with-debug-level=release
+			--with-vendor-name="OpenJDK BSD Porting Team"
+			--with-vendor-url="https://github.com/battleblow/jdk18u/"
+			--with-vendor-bug-url="${JDK_BUG_URL}"
+			--with-vendor-vm-bug-url="${JDK_BUG_URL}"
+			--with-extra-cflags="{{CFLAGS}}"
+			--with-extra-cxxflags="{{CXXFLAGS}}"
+			--with-extra-ldflags="{{LDFLAGS}}"
+			--with-num-cores={{MAKE_JOBS_NUMBER}}
+			--with-default-make-target=product-images
+			--with-toolchain-type=gcc
+			--with-memory-size=8192
 
+[UNSUPPORTED].DESCRIPTION=		Unsupported operating system / architecture
+[FREEBSD].DESCRIPTION=			Build on FreeBSD/AMD64
+[DRAGONFLY].DESCRIPTION=		Build on DragonFly/x86-64
+[NETBSD].DESCRIPTION=			Build on NetBSD/AMD64
+[LINUX].DESCRIPTION=			Build on Linux/x86-64
+
+[UNSUPPORTED].BROKEN_ON=		This operating system and/or architecture is not supported
+[DRAGONFLY].BROKEN_ON=			Missing bootstrap (WIP)
+[NETBSD].BROKEN_ON=			Missing bootstrap (WIP)
+[LINUX].BROKEN_ON=			Missing bootstrap (WIP)
+
+[FREEBSD].DF_INDEX_ON=			2 3
+[FREEBSD].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/bootstrap-openjdk17
+					--disable-precompiled-headers
+[FREEBSD].MAKEFILE_ON=			JDK_OSARCH=bsd-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+
+post-extract:
+	${CAT} ${WRKSRC}/ASSEMBLY_EXCEPTION ${WRKSRC}/ADDITIONAL_LICENSE_INFO > ${WRKDIR}/TERMS
+
+post-extract-FREEBSD-ON:
+	${MV} ${WRKDIR}/freebsd13-javac/* ${WRKDIR}/bootstrap-openjdk17/lib/
+
+pre-configure:
+	${FIND} ${WRKSRC} -name '*.orig' -delete
+	${CHMOD} 755 ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
+		${WRKSRC}/configure \
+		${WRKSRC}/src/hotspot/os/bsd/os_bsd.cpp
+	${REINPLACE_CMD} -e 's|%%ICONV_CFLAGS%%|-I${ICONV_INCLUDE_PATH}|' \
+		-e 's|%%ICONV_LDFLAGS%%|-L${ICONV_LIBRARY_PATH}|' \
+		-e 's|%%ICONV_LIBS%%|${ICONV_LIB}|' \
+		${WRKSRC}/make/autoconf/libraries.m4
+	# replace autoconf templates
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/make/autoconf/build-aux/autoconf-config.guess
+	${CP} ${MK_TEMPLATES}/config.sub   ${WRKSRC}/make/autoconf/build-aux/autoconf-config.sub
+
+do-configure:
+	(cd ${CONFIGURE_WRKSRC} && ${SETENV} CC=${CC} CXX=${CXX} CPP=${CPP} CCACHE_DIR=${CCACHE_DIR} \
+		${LOCALBASE}/bin/bash ./configure ${CONFIGURE_ARGS})
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} CC=${CC} CXX=${CXX} CPP=${CPP} CCACHE_DIR=${CCACHE_DIR} \
+		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS:C,^${DESTDIRNAME}=.*,,g})
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${NAMEBASE}
+	(cd ${JDK_BUILDDIR}/images/jdk && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${NAMEBASE})
+	${FIND} ${STAGEDIR}${PREFIX}/${NAMEBASE}/bin -type f -exec ${CHMOD} ${BINMODE} {} \;
+	${CHMOD} ${BINMODE} ${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/jspawnhelper
