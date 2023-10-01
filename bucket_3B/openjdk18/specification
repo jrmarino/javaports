@@ -17,13 +17,16 @@ SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
 HOMEPAGE=		https://openjdk.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main bootfbsd orphans
+DOWNLOAD_GROUPS=	main bootfbsd orphans linux
 SITES[main]=		GITHUB/battleblow:jdk18u:${RELEASE_TAG}
 SITES[bootfbsd]=	FREELOCAL/glewis/bootstrap-openjdk17
 SITES[orphans]=		https://leaf.dragonflybsd.org/~marino/orphaned-distfiles/
+SITES[linux]=		https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		bootstrap-openjdk17-amd64-17.0.1.12.1.tar.xz:bootfbsd
 DISTFILE[3]=		freebsd13-javac.tar.gz:orphans
+DISTFILE[4]=		openjdk-17.0.2_linux-x64_bin.tar.gz:linux
+DISTFILE[5]=		linux61-javac.tar.gz:orphans
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary legal man examples
@@ -65,7 +68,7 @@ BUILDRUN_DEPENDS=	alsa-lib:primary:standard
 			cups:primary:standard
 RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 
-USES=			cpe jpeg gif png gmake pkgconfig iconv zlib
+USES=			cpe jpeg gif png gmake pkgconfig zlib
 			autoreconf:build
 XORG_COMPONENTS=	x11 xext xi xrandr xrender xt xtst
 CPE_VENDOR=		oracle
@@ -117,12 +120,17 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 [UNSUPPORTED].BROKEN_ON=		This operating system and/or architecture is not supported
 [DRAGONFLY].BROKEN_ON=			Missing bootstrap (WIP)
 [NETBSD].BROKEN_ON=			Missing bootstrap (WIP)
-[LINUX].BROKEN_ON=			Missing bootstrap (WIP)
 
 [FREEBSD].DF_INDEX_ON=			2 3
+[FREEBSD].USES_ON=			iconv
 [FREEBSD].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/bootstrap-openjdk17
 					--disable-precompiled-headers
 [FREEBSD].MAKEFILE_ON=			JDK_OSARCH=bsd-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+
+[LINUX].DF_INDEX_ON=			4 5
+[LINUX].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/jdk-17.0.2
+[LINUX].MAKEFILE_ON=			JDK_OSARCH=linux-x86_64
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
 
 post-extract:
@@ -130,6 +138,9 @@ post-extract:
 
 post-extract-FREEBSD-ON:
 	${MV} ${WRKDIR}/freebsd13-javac/* ${WRKDIR}/bootstrap-openjdk17/lib/
+
+post-extract-LINUX-ON:
+	${MV} ${WRKDIR}/linux61-javac/* ${WRKDIR}/jdk-17.0.2/lib/
 
 pre-configure:
 	${FIND} ${WRKSRC} -name '*.orig' -delete

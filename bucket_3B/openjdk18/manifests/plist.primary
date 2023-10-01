@@ -1,3 +1,14 @@
+%%ONLY-FREEBSD%%openjdk18/include/freebsd/jawt_md.h
+%%ONLY-FREEBSD%%openjdk18/include/freebsd/jni_md.h
+%%ONLY-FREEBSD%%openjdk18/lib/fontconfig.bfc
+%%ONLY-FREEBSD%%openjdk18/lib/fontconfig.properties.src
+%%ONLY-LINUX%%openjdk18/bin/jpackage
+%%ONLY-LINUX%%openjdk18/conf/sdp/sdp.conf.template
+%%ONLY-LINUX%%openjdk18/include/linux/jawt_md.h
+%%ONLY-LINUX%%openjdk18/include/linux/jni_md.h
+%%ONLY-LINUX%%openjdk18/jmods/jdk.jpackage.jmod
+%%ONLY-LINUX%%openjdk18/lib/jexec
+%%ONLY-LINUX%%openjdk18/lib/libjsvml.so
 openjdk18/release
 openjdk18/bin/jar
 openjdk18/bin/jarsigner
@@ -47,8 +58,6 @@ openjdk18/include/jdwpTransport.h
 openjdk18/include/jni.h
 openjdk18/include/jvmti.h
 openjdk18/include/jvmticmlr.h
-openjdk18/include/freebsd/jawt_md.h
-openjdk18/include/freebsd/jni_md.h
 openjdk18/jmods/java.base.jmod
 openjdk18/jmods/java.compiler.jmod
 openjdk18/jmods/java.datatransfer.jmod
@@ -120,8 +129,6 @@ openjdk18/jmods/jdk.xml.dom.jmod
 openjdk18/jmods/jdk.zipfs.jmod
 openjdk18/lib/classlist
 openjdk18/lib/ct.sym
-openjdk18/lib/fontconfig.bfc
-openjdk18/lib/fontconfig.properties.src
 openjdk18/lib/jrt-fs.jar
 openjdk18/lib/jspawnhelper
 openjdk18/lib/jvm.cfg
