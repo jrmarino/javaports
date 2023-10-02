@@ -1,3 +1,9 @@
+%%ONLY-DRAGONFLY%%openjdk18/include/dragonfly/jawt_md.h
+%%ONLY-DRAGONFLY%%openjdk18/include/dragonfly/jni_md.h
+%%ONLY-DRAGONFLY%%openjdk18/include/freebsd/jawt_md.h
+%%ONLY-DRAGONFLY%%openjdk18/include/freebsd/jni_md.h
+%%ONLY-DRAGONFLY%%openjdk18/lib/fontconfig.bfc
+%%ONLY-DRAGONFLY%%openjdk18/lib/fontconfig.properties.src
 %%ONLY-FREEBSD%%openjdk18/include/freebsd/jawt_md.h
 %%ONLY-FREEBSD%%openjdk18/include/freebsd/jni_md.h
 %%ONLY-FREEBSD%%openjdk18/lib/fontconfig.bfc
@@ -9,6 +15,7 @@
 %%ONLY-LINUX%%openjdk18/jmods/jdk.jpackage.jmod
 %%ONLY-LINUX%%openjdk18/lib/jexec
 %%ONLY-LINUX%%openjdk18/lib/libjsvml.so
+%%SCTP%%openjdk18/lib/libsctp.so
 openjdk18/release
 openjdk18/bin/jar
 openjdk18/bin/jarsigner
@@ -162,7 +169,6 @@ openjdk18/lib/libnio.so
 openjdk18/lib/libprefs.so
 openjdk18/lib/librmi.so
 openjdk18/lib/libsaproc.so
-openjdk18/lib/libsctp.so
 openjdk18/lib/libsplashscreen.so
 openjdk18/lib/libsyslookup.so
 openjdk18/lib/libverify.so

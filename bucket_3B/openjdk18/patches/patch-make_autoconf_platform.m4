@@ -1,5 +1,19 @@
 --- make/autoconf/platform.m4.orig	2022-07-20 22:54:48 UTC
 +++ make/autoconf/platform.m4
+@@ -200,11 +200,11 @@ AC_DEFUN([PLATFORM_EXTRACT_VARS_FROM_OS]
+       VAR_OS=macosx
+       VAR_OS_TYPE=unix
+       ;;
+-    *bsd*)
++    *bsd*|*dragonfly*)
+       VAR_OS=bsd
+       VAR_OS_TYPE=unix
+       case "$1" in
+-        *freebsd*)
++        *freebsd*|*dragonfly*)
+           VAR_OS_ENV=bsd.freebsd ;;
+         *openbsd*)
+           VAR_OS_ENV=bsd.openbsd ;;
 @@ -620,6 +620,16 @@ AC_DEFUN([PLATFORM_SET_RELEASE_FILE_OS_V
    if test "x$OPENJDK_TARGET_OS" = "xaix"; then
      RELEASE_FILE_OS_NAME="AIX"

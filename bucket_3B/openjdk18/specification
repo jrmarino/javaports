@@ -17,9 +17,10 @@ SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
 HOMEPAGE=		https://openjdk.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main bootfbsd orphans linux
+DOWNLOAD_GROUPS=	main bootfbsd bootdfly orphans linux
 SITES[main]=		GITHUB/battleblow:jdk18u:${RELEASE_TAG}
 SITES[bootfbsd]=	FREELOCAL/glewis/bootstrap-openjdk17
+SITES[bootdfly]=	https://avalon.dragonflybsd.org/misc/distfiles/
 SITES[orphans]=		https://leaf.dragonflybsd.org/~marino/orphaned-distfiles/
 SITES[linux]=		https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/
 DISTFILE[1]=		generated:main
@@ -27,6 +28,8 @@ DISTFILE[2]=		bootstrap-openjdk17-amd64-17.0.1.12.1.tar.xz:bootfbsd
 DISTFILE[3]=		freebsd13-javac.tar.gz:orphans
 DISTFILE[4]=		openjdk-17.0.2_linux-x64_bin.tar.gz:linux
 DISTFILE[5]=		linux61-javac.tar.gz:orphans
+DISTFILE[6]=		bootstrap-openjdk17-x86_64-17.0.1.12.1.tar.xz:bootdfly
+DISTFILE[7]=		dragonfly64-javac.tar.gz:orphans
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary legal man examples
@@ -110,6 +113,8 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--with-default-make-target=product-images
 			--with-toolchain-type=gcc
 			--with-memory-size=8192
+PLIST_SUB=		SCTP={{SCTP}}
+
 
 [UNSUPPORTED].DESCRIPTION=		Unsupported operating system / architecture
 [FREEBSD].DESCRIPTION=			Build on FreeBSD/AMD64
@@ -118,7 +123,6 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 [LINUX].DESCRIPTION=			Build on Linux/x86-64
 
 [UNSUPPORTED].BROKEN_ON=		This operating system and/or architecture is not supported
-[DRAGONFLY].BROKEN_ON=			Missing bootstrap (WIP)
 [NETBSD].BROKEN_ON=			Missing bootstrap (WIP)
 
 [FREEBSD].DF_INDEX_ON=			2 3
@@ -133,11 +137,22 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 [LINUX].MAKEFILE_ON=			JDK_OSARCH=linux-x86_64
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
 
+[DRAGONFLY].DF_INDEX_ON=		6 7
+[DRAGONFLY].USES_ON=			iconv
+[DRAGONFLY].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/bootstrap-openjdk17
+					--disable-precompiled-headers
+[DRAGONFLY].MAKEFILE_ON=		JDK_OSARCH=bsd-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+					SCTP="@comment "
+
 post-extract:
 	${CAT} ${WRKSRC}/ASSEMBLY_EXCEPTION ${WRKSRC}/ADDITIONAL_LICENSE_INFO > ${WRKDIR}/TERMS
 
 post-extract-FREEBSD-ON:
 	${MV} ${WRKDIR}/freebsd13-javac/* ${WRKDIR}/bootstrap-openjdk17/lib/
+
+post-extract-DRAGONFLY-ON:
+	${MV} ${WRKDIR}/dragonfly64-javac/* ${WRKDIR}/bootstrap-openjdk17/lib/
 
 post-extract-LINUX-ON:
 	${MV} ${WRKDIR}/linux61-javac/* ${WRKDIR}/jdk-17.0.2/lib/
@@ -169,3 +184,7 @@ do-install:
 	(cd ${JDK_BUILDDIR}/images/jdk && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${NAMEBASE})
 	${FIND} ${STAGEDIR}${PREFIX}/${NAMEBASE}/bin -type f -exec ${CHMOD} ${BINMODE} {} \;
 	${CHMOD} ${BINMODE} ${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/jspawnhelper
+
+post-install-DRAGONFLY-ON:
+	${CP} -a ${STAGEDIR}${PREFIX}/${NAMEBASE}/include/freebsd \
+		${STAGEDIR}${PREFIX}/${NAMEBASE}/include/dragonfly
