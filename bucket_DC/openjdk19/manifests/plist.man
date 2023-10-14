@@ -25,3 +25,4 @@
 %%BASE%%/man/man1/keytool.1
 %%BASE%%/man/man1/rmiregistry.1
 %%BASE%%/man/man1/serialver.1
+%%ONLY-LINUX%%%%BASE%%/man/man1/jpackage.1

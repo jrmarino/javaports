@@ -47,8 +47,6 @@
 %%BASE%%/include/jni.h
 %%BASE%%/include/jvmti.h
 %%BASE%%/include/jvmticmlr.h
-%%BASE%%/include/freebsd/jawt_md.h
-%%BASE%%/include/freebsd/jni_md.h
 %%BASE%%/jmods/java.base.jmod
 %%BASE%%/jmods/java.compiler.jmod
 %%BASE%%/jmods/java.datatransfer.jmod
@@ -120,8 +118,6 @@
 %%BASE%%/jmods/jdk.zipfs.jmod
 %%BASE%%/lib/classlist
 %%BASE%%/lib/ct.sym
-%%BASE%%/lib/fontconfig.bfc
-%%BASE%%/lib/fontconfig.properties.src
 %%BASE%%/lib/jrt-fs.jar
 %%BASE%%/lib/jspawnhelper
 %%BASE%%/lib/jvm.cfg
@@ -155,7 +151,6 @@
 %%BASE%%/lib/libprefs.so
 %%BASE%%/lib/librmi.so
 %%BASE%%/lib/libsaproc.so
-%%BASE%%/lib/libsctp.so
 %%BASE%%/lib/libsplashscreen.so
 %%BASE%%/lib/libsyslookup.so
 %%BASE%%/lib/libverify.so
@@ -173,3 +168,20 @@
 %%BASE%%/lib/security/public_suffix_list.dat
 %%BASE%%/lib/server/libjsig.so
 %%BASE%%/lib/server/libjvm.so
+%%ONLY-DRAGONFLY%%openjdk18/include/dragonfly/jawt_md.h
+%%ONLY-DRAGONFLY%%openjdk18/include/dragonfly/jni_md.h
+%%ONLY-DRAGONFLY%%openjdk18/include/freebsd/jawt_md.h
+%%ONLY-DRAGONFLY%%openjdk18/include/freebsd/jni_md.h
+%%ONLY-DRAGONFLY%%openjdk18/lib/fontconfig.bfc
+%%ONLY-DRAGONFLY%%openjdk18/lib/fontconfig.properties.src
+%%ONLY-FREEBSD%%openjdk18/include/freebsd/jawt_md.h
+%%ONLY-FREEBSD%%openjdk18/include/freebsd/jni_md.h
+%%ONLY-FREEBSD%%openjdk18/lib/fontconfig.bfc
+%%ONLY-FREEBSD%%openjdk18/lib/fontconfig.properties.src
+%%ONLY-LINUX%%%%BASE%%/bin/jpackage
+%%ONLY-LINUX%%%%BASE%%/conf/sdp/sdp.conf.template
+%%ONLY-LINUX%%%%BASE%%/include/linux/jawt_md.h
+%%ONLY-LINUX%%%%BASE%%/include/linux/jni_md.h
+%%ONLY-LINUX%%%%BASE%%/lib/jexec
+%%ONLY-LINUX%%%%BASE%%/lib/libjsvml.so
+%%SCTP%%%%BASE%%/lib/libsctp.so

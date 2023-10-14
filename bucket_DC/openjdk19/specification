@@ -23,6 +23,7 @@ SITES[ravendist]=	https://leaf.dragonflybsd.org/~marino/raven-distfiles/
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		bootstrap-openjdk-18.0.2-FreeBSD-amd64.tzst:ravendist
 DISTFILE[3]=		bootstrap-openjdk-18.0.2-dragonfly-x86_64.tzst:ravendist
+DISTFILE[4]=		bootstrap-openjdk-18.0.2-Linux-amd64.tzst:ravendist
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary legal man examples
@@ -126,7 +127,7 @@ PLIST_SUB=		SCTP={{SCTP}}
 [FREEBSD].MAKEFILE_ON=			JDK_OSARCH=bsd-x86_64
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
 
-# [LINUX].DF_INDEX_ON=			4
+[LINUX].DF_INDEX_ON=			4
 [LINUX].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk18
 [LINUX].MAKEFILE_ON=			JDK_OSARCH=linux-x86_64
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
