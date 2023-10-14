@@ -17,19 +17,19 @@ SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
 HOMEPAGE=		https://openjdk.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main bootfbsd bootdfly orphans linux
+DOWNLOAD_GROUPS=	main bootfbsd bootdfly ravendist linux
 SITES[main]=		GITHUB/battleblow:jdk18u:${RELEASE_TAG}
 SITES[bootfbsd]=	FREELOCAL/glewis/bootstrap-openjdk17
 SITES[bootdfly]=	https://avalon.dragonflybsd.org/misc/distfiles/
-SITES[orphans]=		https://leaf.dragonflybsd.org/~marino/orphaned-distfiles/
+SITES[ravendist]=	https://leaf.dragonflybsd.org/~marino/raven-distfiles/
 SITES[linux]=		https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		bootstrap-openjdk17-amd64-17.0.1.12.1.tar.xz:bootfbsd
-DISTFILE[3]=		freebsd13-javac.tar.gz:orphans
+DISTFILE[3]=		freebsd13-javac.tar.gz:ravendist
 DISTFILE[4]=		openjdk-17.0.2_linux-x64_bin.tar.gz:linux
-DISTFILE[5]=		linux61-javac.tar.gz:orphans
+DISTFILE[5]=		linux61-javac.tar.gz:ravendist
 DISTFILE[6]=		bootstrap-openjdk17-x86_64-17.0.1.12.1.tar.xz:bootdfly
-DISTFILE[7]=		dragonfly64-javac.tar.gz:orphans
+DISTFILE[7]=		dragonfly64-javac.tar.gz:ravendist
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary legal man examples
