@@ -182,6 +182,7 @@
 %%ONLY-LINUX%%%%BASE%%/conf/sdp/sdp.conf.template
 %%ONLY-LINUX%%%%BASE%%/include/linux/jawt_md.h
 %%ONLY-LINUX%%%%BASE%%/include/linux/jni_md.h
+%%ONLY-LINUX%%%%BASE%%/jmods/jdk.jpackage.jmod
 %%ONLY-LINUX%%%%BASE%%/lib/jexec
 %%ONLY-LINUX%%%%BASE%%/lib/libjsvml.so
 %%SCTP%%%%BASE%%/lib/libsctp.so
