@@ -81,7 +81,7 @@
 %%BASE%%/jmods/jdk.editpad.jmod
 %%BASE%%/jmods/jdk.hotspot.agent.jmod
 %%BASE%%/jmods/jdk.httpserver.jmod
-%%BASE%%/jmods/jdk.incubator.foreign.jmod
+%%BASE%%/jmods/jdk.incubator.concurrent.jmod
 %%BASE%%/jmods/jdk.incubator.vector.jmod
 %%BASE%%/jmods/jdk.internal.ed.jmod
 %%BASE%%/jmods/jdk.internal.jvmstat.jmod
