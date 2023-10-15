@@ -1,10 +1,10 @@
-DEF[JDK_MAJOR_VER]=	19
+DEF[JDK_MAJOR_VER]=	20
 DEF[JDK_MINOR_VER]=	0
 DEF[JDK_PATCH_VER]=	2
-DEF[JDK_BUILD_NUM]=	7
+DEF[JDK_BUILD_NUM]=	9
 DEF[PORTVERSION]=	${JDK_MAJOR_VER}.${JDK_MINOR_VER}.${JDK_PATCH_VER}
 DEF[VERSION_STRING]=	${PORTVERSION}+${JDK_BUILD_NUM}-1
-DEF[RELEASE_TAG]=	jdk-${VERSION_STRING}
+DEF[RELEASE_TAG]=	937c4d1
 DEF[JDK_BUG_URL]=	https://github.com/Ravenports/ravensource/issues
 DEF[NAMEBASE]=		openjdk${JDK_MAJOR_VER}
 # ----------------------------------------------------------------------------
@@ -18,12 +18,12 @@ HOMEPAGE=		https://openjdk.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main ravendist
-SITES[main]=		GITHUB/battleblow:jdk19u:${RELEASE_TAG}
+SITES[main]=		GITHUB/jrmarino:jdk20u:${RELEASE_TAG}
 SITES[ravendist]=	https://leaf.dragonflybsd.org/~marino/raven-distfiles/
 DISTFILE[1]=		generated:main
-DISTFILE[2]=		bootstrap-openjdk-18.0.2-FreeBSD-amd64.tzst:ravendist
-DISTFILE[3]=		bootstrap-openjdk-18.0.2-dragonfly-x86_64.tzst:ravendist
-DISTFILE[4]=		bootstrap-openjdk-18.0.2-Linux-amd64.tzst:ravendist
+DISTFILE[2]=		bootstrap-openjdk-19.0.2-FreeBSD-amd64.tzst:ravendist
+DISTFILE[3]=		bootstrap-openjdk-19.0.2-dragonfly-x86_64.tzst:ravendist
+DISTFILE[4]=		bootstrap-openjdk-19.0.2-Linux-amd64.tzst:ravendist
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary legal man examples
@@ -46,7 +46,7 @@ LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		java/openjdk19
+FPC_EQUIVALENT=		java/openjdk20
 
 BUILD_DEPENDS=		alsa-lib:dev:standard
 			fontconfig:dev:standard
@@ -97,7 +97,7 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--with-native-debug-symbols=none
 			--with-debug-level=release
 			--with-vendor-name="OpenJDK BSD Porting Team"
-			--with-vendor-url="https://github.com/battleblow/jdk19u/"
+			--with-vendor-url="https://github.com/battleblow/jdk20u/"
 			--with-vendor-bug-url="${JDK_BUG_URL}"
 			--with-vendor-vm-bug-url="${JDK_BUG_URL}"
 			--with-extra-cflags="{{CFLAGS}}"
@@ -122,19 +122,19 @@ PLIST_SUB=		SCTP={{SCTP}}
 
 [FREEBSD].DF_INDEX_ON=			2
 [FREEBSD].USES_ON=			iconv
-[FREEBSD].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk18
+[FREEBSD].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk19
 					--disable-precompiled-headers
 [FREEBSD].MAKEFILE_ON=			JDK_OSARCH=bsd-x86_64
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
 
 [LINUX].DF_INDEX_ON=			4
-[LINUX].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk18
+[LINUX].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk19
 [LINUX].MAKEFILE_ON=			JDK_OSARCH=linux-x86_64
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
 
 [DRAGONFLY].DF_INDEX_ON=		3
 [DRAGONFLY].USES_ON=			iconv
-[DRAGONFLY].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk18
+[DRAGONFLY].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk19
 					--disable-precompiled-headers
 [DRAGONFLY].MAKEFILE_ON=		JDK_OSARCH=bsd-x86_64
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
