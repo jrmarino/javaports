@@ -10,7 +10,6 @@
 %%BASE%%/man/man1/jdeprscan.1
 %%BASE%%/man/man1/jdeps.1
 %%BASE%%/man/man1/jfr.1
-%%BASE%%/man/man1/jhsdb.1
 %%BASE%%/man/man1/jinfo.1
 %%BASE%%/man/man1/jlink.1
 %%BASE%%/man/man1/jmap.1
@@ -25,4 +24,5 @@
 %%BASE%%/man/man1/keytool.1
 %%BASE%%/man/man1/rmiregistry.1
 %%BASE%%/man/man1/serialver.1
+%%HOTSPOT_AGENT%%%%BASE%%/man/man1/jhsdb.1
 %%ONLY-LINUX%%%%BASE%%/man/man1/jpackage.1

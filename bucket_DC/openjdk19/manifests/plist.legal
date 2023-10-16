@@ -108,9 +108,6 @@
 %%BASE%%/legal/jdk.editpad/ADDITIONAL_LICENSE_INFO
 %%BASE%%/legal/jdk.editpad/ASSEMBLY_EXCEPTION
 %%BASE%%/legal/jdk.editpad/LICENSE
-%%BASE%%/legal/jdk.hotspot.agent/ADDITIONAL_LICENSE_INFO
-%%BASE%%/legal/jdk.hotspot.agent/ASSEMBLY_EXCEPTION
-%%BASE%%/legal/jdk.hotspot.agent/LICENSE
 %%BASE%%/legal/jdk.httpserver/ADDITIONAL_LICENSE_INFO
 %%BASE%%/legal/jdk.httpserver/ASSEMBLY_EXCEPTION
 %%BASE%%/legal/jdk.httpserver/LICENSE
@@ -231,6 +228,9 @@
 %%BASE%%/legal/jdk.zipfs/ADDITIONAL_LICENSE_INFO
 %%BASE%%/legal/jdk.zipfs/ASSEMBLY_EXCEPTION
 %%BASE%%/legal/jdk.zipfs/LICENSE
+%%HOTSPOT_AGENT%%%%BASE%%/legal/jdk.hotspot.agent/ADDITIONAL_LICENSE_INFO
+%%HOTSPOT_AGENT%%%%BASE%%/legal/jdk.hotspot.agent/ASSEMBLY_EXCEPTION
+%%HOTSPOT_AGENT%%%%BASE%%/legal/jdk.hotspot.agent/LICENSE
 %%ONLY-LINUX%%%%BASE%%/legal/jdk.jpackage/ADDITIONAL_LICENSE_INFO
 %%ONLY-LINUX%%%%BASE%%/legal/jdk.jpackage/ASSEMBLY_EXCEPTION
 %%ONLY-LINUX%%%%BASE%%/legal/jdk.jpackage/LICENSE

@@ -11,7 +11,6 @@
 %%BASE%%/bin/jdeprscan
 %%BASE%%/bin/jdeps
 %%BASE%%/bin/jfr
-%%BASE%%/bin/jhsdb
 %%BASE%%/bin/jimage
 %%BASE%%/bin/jinfo
 %%BASE%%/bin/jlink
@@ -77,7 +76,6 @@
 %%BASE%%/jmods/jdk.crypto.ec.jmod
 %%BASE%%/jmods/jdk.dynalink.jmod
 %%BASE%%/jmods/jdk.editpad.jmod
-%%BASE%%/jmods/jdk.hotspot.agent.jmod
 %%BASE%%/jmods/jdk.httpserver.jmod
 %%BASE%%/jmods/jdk.incubator.concurrent.jmod
 %%BASE%%/jmods/jdk.incubator.vector.jmod
@@ -150,7 +148,6 @@
 %%BASE%%/lib/libnio.so
 %%BASE%%/lib/libprefs.so
 %%BASE%%/lib/librmi.so
-%%BASE%%/lib/libsaproc.so
 %%BASE%%/lib/libsplashscreen.so
 %%BASE%%/lib/libsyslookup.so
 %%BASE%%/lib/libverify.so
@@ -168,6 +165,9 @@
 %%BASE%%/lib/security/public_suffix_list.dat
 %%BASE%%/lib/server/libjsig.so
 %%BASE%%/lib/server/libjvm.so
+%%HOTSPOT_AGENT%%%%BASE%%/bin/jhsdb
+%%HOTSPOT_AGENT%%%%BASE%%/jmods/jdk.hotspot.agent.jmod
+%%HOTSPOT_AGENT%%%%BASE%%/lib/libsaproc.so
 %%ONLY-DRAGONFLY%%%%BASE%%/include/dragonfly/jawt_md.h
 %%ONLY-DRAGONFLY%%%%BASE%%/include/dragonfly/jni_md.h
 %%ONLY-DRAGONFLY%%%%BASE%%/include/freebsd/jawt_md.h
@@ -185,4 +185,8 @@
 %%ONLY-LINUX%%%%BASE%%/jmods/jdk.jpackage.jmod
 %%ONLY-LINUX%%%%BASE%%/lib/jexec
 %%ONLY-LINUX%%%%BASE%%/lib/libjsvml.so
+%%ONLY-NETBSD%%%%BASE%%/include/netbsd/jawt_md.h
+%%ONLY-NETBSD%%%%BASE%%/include/netbsd/jni_md.h
+%%ONLY-NETBSD%%%%BASE%%/lib/fontconfig.bfc
+%%ONLY-NETBSD%%%%BASE%%/lib/fontconfig.properties.src
 %%SCTP%%%%BASE%%/lib/libsctp.so
