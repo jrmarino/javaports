@@ -146,8 +146,7 @@ post-extract:
 pre-configure:
 	${FIND} ${WRKSRC} -name '*.orig' -delete
 	${CHMOD} 755 ${WRKSRC}/configure
-	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
-		${WRKSRC}/configure \
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
 		${WRKSRC}/src/hotspot/os/bsd/os_bsd.cpp
 	${REINPLACE_CMD} -e 's|%%ICONV_CFLAGS%%|-I${ICONV_INCLUDE_PATH}|' \
 		-e 's|%%ICONV_LDFLAGS%%|-L${ICONV_LIBRARY_PATH}|' \
