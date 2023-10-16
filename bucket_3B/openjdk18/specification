@@ -17,10 +17,11 @@ SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
 HOMEPAGE=		https://openjdk.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main bootfbsd bootdfly ravendist linux
+DOWNLOAD_GROUPS=	main bootfbsd bootdfly bootnet ravendist linux
 SITES[main]=		GITHUB/battleblow:jdk18u:${RELEASE_TAG}
 SITES[bootfbsd]=	FREELOCAL/glewis/bootstrap-openjdk17
 SITES[bootdfly]=	https://avalon.dragonflybsd.org/misc/distfiles/
+SITES[bootnet]=		https://www.mirrorservice.org/pub/pkgsrc/distfiles/
 SITES[ravendist]=	https://leaf.dragonflybsd.org/~marino/raven-distfiles/
 SITES[linux]=		https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/
 DISTFILE[1]=		generated:main
@@ -30,6 +31,8 @@ DISTFILE[4]=		openjdk-17.0.2_linux-x64_bin.tar.gz:linux
 DISTFILE[5]=		linux61-javac.tar.gz:ravendist
 DISTFILE[6]=		bootstrap-openjdk17-x86_64-17.0.1.12.1.tar.xz:bootdfly
 DISTFILE[7]=		dragonfly64-javac.tar.gz:ravendist
+DISTFILE[8]=		bootstrap-jdk-1.17.0.3.7-netbsd-9-amd64-20220515.tar.xz:bootnet
+DISTFILE[9]=		netbsd64-javac.tar.gz:ravendist
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary legal man examples
@@ -114,6 +117,7 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--with-toolchain-type=gcc
 			--with-memory-size=8192
 PLIST_SUB=		SCTP={{SCTP}}
+			HOTSPOT_AGENT={{HOTSPOT_AGENT}}
 
 
 [UNSUPPORTED].DESCRIPTION=		Unsupported operating system / architecture
@@ -123,7 +127,6 @@ PLIST_SUB=		SCTP={{SCTP}}
 [LINUX].DESCRIPTION=			Build on Linux/x86-64
 
 [UNSUPPORTED].BROKEN_ON=		This operating system and/or architecture is not supported
-[NETBSD].BROKEN_ON=			Missing bootstrap (WIP)
 
 [FREEBSD].DF_INDEX_ON=			2 3
 [FREEBSD].USES_ON=			iconv
@@ -145,6 +148,15 @@ PLIST_SUB=		SCTP={{SCTP}}
 					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
 					SCTP="@comment "
 
+[NETBSD].DF_INDEX_ON=			8 9
+[NETBSD].USES_ON=			iconv
+[NETBSD].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/bootstrap
+					--disable-precompiled-headers
+[NETBSD].MAKEFILE_ON=			JDK_OSARCH=bsd-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+					SCTP="@comment "
+					HOTSPOT_AGENT="@comment "
+
 post-extract:
 	${CAT} ${WRKSRC}/ASSEMBLY_EXCEPTION ${WRKSRC}/ADDITIONAL_LICENSE_INFO > ${WRKDIR}/TERMS
 
@@ -157,11 +169,18 @@ post-extract-DRAGONFLY-ON:
 post-extract-LINUX-ON:
 	${MV} ${WRKDIR}/linux61-javac/* ${WRKDIR}/jdk-17.0.2/lib/
 
+post-extract-NETBSD-ON:
+	${MKDIR} /root/pkg/java/openjdk17
+	${LN} -s ${WRKDIR}/bootstrap/lib /root/pkg/java/openjdk17/lib
+	${MV} ${WRKDIR}/netbsd64-javac/* ${WRKDIR}/bootstrap/lib/
+	echo "${LOCALBASE}/lib" > /etc/ld.so.conf
+	echo "${WRKDIR}/bootstrap/lib" >> /etc/ld.so.conf
+
 pre-configure:
 	${FIND} ${WRKSRC} -name '*.orig' -delete
 	${CHMOD} 755 ${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
-		${WRKSRC}/configure \
+		-e 's|/usr/pkg/lib|${LOCALBASE}/lib|' \
 		${WRKSRC}/src/hotspot/os/bsd/os_bsd.cpp
 	${REINPLACE_CMD} -e 's|%%ICONV_CFLAGS%%|-I${ICONV_INCLUDE_PATH}|' \
 		-e 's|%%ICONV_LDFLAGS%%|-L${ICONV_LIBRARY_PATH}|' \
@@ -170,6 +189,10 @@ pre-configure:
 	# replace autoconf templates
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/make/autoconf/build-aux/autoconf-config.guess
 	${CP} ${MK_TEMPLATES}/config.sub   ${WRKSRC}/make/autoconf/build-aux/autoconf-config.sub
+
+pre-configure-NETBSD-ON:
+	# Until NetBSD 10, hash-style=gnu isn't supported
+	${REINPLACE_CMD} -e 's| -Wl,--hash-style=gnu||' ${WRKSRC}/make/autoconf/flags-ldflags.m4
 
 do-configure:
 	(cd ${CONFIGURE_WRKSRC} && ${SETENV} CC=${CC} CXX=${CXX} CPP=${CPP} CCACHE_DIR=${CCACHE_DIR} \

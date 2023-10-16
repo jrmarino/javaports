@@ -1,3 +1,6 @@
+%%HOTSPOT_AGENT%%openjdk18/bin/jhsdb
+%%HOTSPOT_AGENT%%openjdk18/jmods/jdk.hotspot.agent.jmod
+%%HOTSPOT_AGENT%%openjdk18/lib/libsaproc.so
 %%ONLY-DRAGONFLY%%openjdk18/include/dragonfly/jawt_md.h
 %%ONLY-DRAGONFLY%%openjdk18/include/dragonfly/jni_md.h
 %%ONLY-DRAGONFLY%%openjdk18/include/freebsd/jawt_md.h
@@ -15,6 +18,10 @@
 %%ONLY-LINUX%%openjdk18/jmods/jdk.jpackage.jmod
 %%ONLY-LINUX%%openjdk18/lib/jexec
 %%ONLY-LINUX%%openjdk18/lib/libjsvml.so
+%%ONLY-NETBSD%%openjdk18/include/netbsd/jawt_md.h
+%%ONLY-NETBSD%%openjdk18/include/netbsd/jni_md.h
+%%ONLY-NETBSD%%openjdk18/lib/fontconfig.bfc
+%%ONLY-NETBSD%%openjdk18/lib/fontconfig.properties.src
 %%SCTP%%openjdk18/lib/libsctp.so
 openjdk18/release
 openjdk18/bin/jar
@@ -29,7 +36,6 @@ openjdk18/bin/jdb
 openjdk18/bin/jdeprscan
 openjdk18/bin/jdeps
 openjdk18/bin/jfr
-openjdk18/bin/jhsdb
 openjdk18/bin/jimage
 openjdk18/bin/jinfo
 openjdk18/bin/jlink
@@ -95,7 +101,6 @@ openjdk18/jmods/jdk.crypto.cryptoki.jmod
 openjdk18/jmods/jdk.crypto.ec.jmod
 openjdk18/jmods/jdk.dynalink.jmod
 openjdk18/jmods/jdk.editpad.jmod
-openjdk18/jmods/jdk.hotspot.agent.jmod
 openjdk18/jmods/jdk.httpserver.jmod
 openjdk18/jmods/jdk.incubator.foreign.jmod
 openjdk18/jmods/jdk.incubator.vector.jmod
@@ -168,7 +173,6 @@ openjdk18/lib/libnet.so
 openjdk18/lib/libnio.so
 openjdk18/lib/libprefs.so
 openjdk18/lib/librmi.so
-openjdk18/lib/libsaproc.so
 openjdk18/lib/libsplashscreen.so
 openjdk18/lib/libsyslookup.so
 openjdk18/lib/libverify.so

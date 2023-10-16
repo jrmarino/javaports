@@ -1,3 +1,6 @@
+%%HOTSPOT_AGENT%%openjdk18/legal/jdk.hotspot.agent/ADDITIONAL_LICENSE_INFO
+%%HOTSPOT_AGENT%%openjdk18/legal/jdk.hotspot.agent/ASSEMBLY_EXCEPTION
+%%HOTSPOT_AGENT%%openjdk18/legal/jdk.hotspot.agent/LICENSE
 %%ONLY-LINUX%%openjdk18/legal/jdk.jpackage/ADDITIONAL_LICENSE_INFO
 %%ONLY-LINUX%%openjdk18/legal/jdk.jpackage/ASSEMBLY_EXCEPTION
 %%ONLY-LINUX%%openjdk18/legal/jdk.jpackage/LICENSE
@@ -111,9 +114,6 @@ openjdk18/legal/jdk.dynalink/dynalink.md
 openjdk18/legal/jdk.editpad/ADDITIONAL_LICENSE_INFO
 openjdk18/legal/jdk.editpad/ASSEMBLY_EXCEPTION
 openjdk18/legal/jdk.editpad/LICENSE
-openjdk18/legal/jdk.hotspot.agent/ADDITIONAL_LICENSE_INFO
-openjdk18/legal/jdk.hotspot.agent/ASSEMBLY_EXCEPTION
-openjdk18/legal/jdk.hotspot.agent/LICENSE
 openjdk18/legal/jdk.httpserver/ADDITIONAL_LICENSE_INFO
 openjdk18/legal/jdk.httpserver/ASSEMBLY_EXCEPTION
 openjdk18/legal/jdk.httpserver/LICENSE
