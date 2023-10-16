@@ -1,4 +1,4 @@
---- src/java.desktop/share/native/libfontmanager/freetypeScaler.c.orig	2023-01-21 05:27:28 UTC
+--- src/java.desktop/share/native/libfontmanager/freetypeScaler.c.orig	2023-10-15 00:46:12 UTC
 +++ src/java.desktop/share/native/libfontmanager/freetypeScaler.c
 @@ -43,6 +43,7 @@
  #include FT_SYNTHESIS_H
@@ -141,7 +141,7 @@
 +
  #ifdef DEBUG
  /* These are referenced in the freetype sources if DEBUG macro is defined.
-    To simplify work with debuging version of freetype we define
+    To simplify work with debugging version of freetype we define
 @@ -945,29 +1073,12 @@ static jlong
           renderFlags |= FT_LOAD_NO_HINTING;
       }
