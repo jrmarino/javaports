@@ -1,0 +1,54 @@
+DEF[NAMEBASE]=		spirv-llvm-translator17
+DEF[LLVMBASE]=		llvm17
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
+DEF[PORTVERSION]=	17.0.0
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[HEAD_TAG]=		sdk-1.3.261.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	LLVM to SPIRV Translator
+HOMEPAGE=		https://github.com/KhronosGroup/SPIRV-LLVM-Translator
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main headers
+SITES[main]=		GITHUB/KhronosGroup:SPIRV-LLVM-Translator:${RELEASE_TAG}
+SITES[headers]=		GITHUB/KhronosGroup:SPIRV-Headers:${HEAD_TAG}
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:headers
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/spirv-llvm-translator
+
+BUILD_DEPENDS=		${LLVMBASE}:dev:standard
+			${LLVMBASE}:tools:standard
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
+
+USES=			cmake
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DLLVM_BUILD_TOOLS:BOOL=ON
+			-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR={{WRKDIR}}/SPIRV-Headers-${HEAD_TAG}
+SOVERSION=		${LLVM_VERSION}
+
+post-extract:
+	# match headers
+	${REINPLACE_CMD} -e 's|ConstFunctionPointerINTEL|ConstantFunctionPointerINTEL|g' \
+		${WRKSRC}/lib/SPIRV/SPIRVReader.cpp \
+		${WRKSRC}/lib/SPIRV/SPIRVWriter.cpp \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVFunction.h \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVModule.h \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVModule.cpp \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVOpCode.h \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVOpCodeEnum.h
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/llvm-spirv
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libLLVMSPIRVLib.so
