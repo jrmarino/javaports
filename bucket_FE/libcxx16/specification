@@ -2,7 +2,7 @@ DEF[NAMEBASE]=		libcxx16
 DEF[LLVMBASE]=		llvm16
 DEF[CLANGBASE]=		clang16
 DEF[LLVMUNWIND]=	llvm-libunwind16
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM16_VERSION)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
