@@ -1,0 +1,63 @@
+--- projects/libcxx/include/__config.orig	2023-06-10 22:58:16 UTC
++++ projects/libcxx/include/__config
+@@ -12,6 +12,10 @@
+ 
+ #include <__config_site>
+ 
++#if defined(__FreeBSD__) || defined(__DragonFly__)
++#define __FreeDragon__
++#endif
++
+ #if defined(_MSC_VER) && !defined(__clang__)
+ #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+ #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
+@@ -162,7 +166,7 @@
+ #    endif
+ // Feature macros for disabling pre ABI v1 features. All of these options
+ // are deprecated.
+-#    if defined(__FreeBSD__)
++#    if defined(__FreeDragon__)
+ #      define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
+ #    endif
+ #  endif
+@@ -299,7 +303,7 @@
+ #    endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+ #  endif   // __BYTE_ORDER__
+ 
+-#  ifdef __FreeBSD__
++#  ifdef __FreeDragon__
+ #    include <sys/endian.h>
+ #    include <osreldate.h>
+ #    if _BYTE_ORDER == _LITTLE_ENDIAN
+@@ -307,7 +311,7 @@
+ #    else // _BYTE_ORDER == _LITTLE_ENDIAN
+ #      define _LIBCPP_BIG_ENDIAN
+ #    endif // _BYTE_ORDER == _LITTLE_ENDIAN
+-#  endif   // __FreeBSD__
++#  endif   // __FreeDragon__
+ 
+ #  if defined(__NetBSD__) || defined(__OpenBSD__)
+ #    include <sys/endian.h>
+@@ -760,11 +764,11 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
+ #    define _LIBCPP_HAS_NO_C11_ALIGNED_ALLOC
+ #  endif
+ 
+-#  if defined(__APPLE__) || defined(__FreeBSD__)
++#  if defined(__APPLE__) || defined(__FreeDragon__)
+ #    define _LIBCPP_HAS_DEFAULTRUNELOCALE
+ #  endif
+ 
+-#  if defined(__APPLE__) || defined(__FreeBSD__) || defined(__sun__)
++#  if defined(__APPLE__) || defined(__FreeDragon__) || defined(__sun__)
+ #    define _LIBCPP_WCTYPE_IS_MASK
+ #  endif
+ 
+@@ -919,7 +923,7 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
+       !defined(_LIBCPP_HAS_THREAD_API_WIN32) &&                                                                        \
+       !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
+ 
+-#    if defined(__FreeBSD__) ||                                                                                        \
++#    if defined(__FreeDragon__) ||                                                                                        \
+         defined(__wasi__) ||                                                                                           \
+         defined(__NetBSD__) ||                                                                                         \
+         defined(__OpenBSD__) ||                                                                                        \
