@@ -1,0 +1,11 @@
+--- projects/libcxx/CMakeLists.txt.orig	2023-10-17 06:20:52 UTC
++++ projects/libcxx/CMakeLists.txt
+@@ -207,8 +207,6 @@ option(LIBCXX_USE_COMPILER_RT "Use compi
+ # ABI Library options ---------------------------------------------------------
+ if (MSVC)
+   set(LIBCXX_DEFAULT_ABI_LIBRARY "vcruntime")
+-elseif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+-  set(LIBCXX_DEFAULT_ABI_LIBRARY "libcxxrt")
+ else()
+   set(LIBCXX_DEFAULT_ABI_LIBRARY "libcxxabi")
+ endif()
