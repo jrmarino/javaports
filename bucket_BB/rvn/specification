@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	0.0.2
+DEF[TAG]=		02ab9eb
+DEF[FORMAT_TAG]=	v1.0
+DEF[SQLITE_VER]=	3.28.0
+DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
+DEF[SQLITE_YEAR]=	2019
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rvn
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven
+VARIANTS=		standard
+SDESC[standard]=	Ravenports binary package manager
+HOMEPAGE=		https://github.com/ravenports/rvn
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main sqlite format
+SITES[main]=		GITHUB/ravenports:rvn:${TAG}
+SITES[format]=		GITHUB/ravenports:rvn-format:${FORMAT_TAG}:src/rvn-format
+SITES[sqlite]=		https://www.sqlite.org/${SQLITE_YEAR}/
+			http://www2.sqlite.org/${SQLITE_YEAR}/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:format
+DISTFILE[3]=		sqlite-autoconf-${SQLITE_LONGVER}.tar.gz:sqlite
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	RUNTESTS
+OPTIONS_STANDARD=	RUNTESTS
+
+LICENSE=		ISCL:primary
+LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libucl:single:ravensw
+			libblake3:single:standard
+
+USES=			pkgconfig zstd:build gprbuild
+MAKE_ENV=		WRKSRC={{WRKSRC}}
+INFRASTRUCTURE=		yes
+
+[RUNTESTS].DESCRIPTION=			Run kyua tests after build
+[RUNTESTS].BUILD_DEPENDS_ON=		kyua:single:standard
+
+post-build-RUNTESTS-ON:
+	${ECHO} "#!/bin/sh"              >> ${WRKSRC}/tests/exec_test.sh
+.if "${OPSYS}" == "Linux"
+	${ECHO} "export -n RVN_CACHEDIR" >> ${WRKSRC}/tests/exec_test.sh
+	${ECHO} "export -n RVN_DBDIR"    >> ${WRKSRC}/tests/exec_test.sh
+.else
+	${ECHO} "unset RVN_CACHEDIR"     >> ${WRKSRC}/tests/exec_test.sh
+	${ECHO} "unset RVN_DBDIR"        >> ${WRKSRC}/tests/exec_test.sh
+.endif
+	${ECHO} "kyua test"                  >> ${WRKSRC}/tests/exec_test.sh
+	${CHMOD} ${BINMODE} ${WRKSRC}/tests/exec_test.sh
+	(cd ${WRKSRC}/tests && ./exec_test.sh ||:)

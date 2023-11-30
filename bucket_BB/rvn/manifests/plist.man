@@ -1,0 +1,5 @@
+share/man/man8/rvn-alias.8.gz
+share/man/man8/rvn-config.8.gz
+share/man/man8/rvn-create.8.gz
+share/man/man8/rvn-info.8.gz
+share/man/man8/rvn.8.gz
