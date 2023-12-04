@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	0.0.2
-DEF[TAG]=		02ab9eb
-DEF[FORMAT_TAG]=	v1.0
+DEF[PORTVERSION]=	0.0.3
+DEF[TAG]=		v0.0.3
+DEF[FORMAT_TAG]=	v1.5
 DEF[SQLITE_VER]=	3.28.0
 DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
 DEF[SQLITE_YEAR]=	2019
@@ -44,14 +44,4 @@ INFRASTRUCTURE=		yes
 [RUNTESTS].BUILD_DEPENDS_ON=		kyua:single:standard
 
 post-build-RUNTESTS-ON:
-	${ECHO} "#!/bin/sh"              >> ${WRKSRC}/tests/exec_test.sh
-.if "${OPSYS}" == "Linux"
-	${ECHO} "export -n RVN_CACHEDIR" >> ${WRKSRC}/tests/exec_test.sh
-	${ECHO} "export -n RVN_DBDIR"    >> ${WRKSRC}/tests/exec_test.sh
-.else
-	${ECHO} "unset RVN_CACHEDIR"     >> ${WRKSRC}/tests/exec_test.sh
-	${ECHO} "unset RVN_DBDIR"        >> ${WRKSRC}/tests/exec_test.sh
-.endif
-	${ECHO} "kyua test"                  >> ${WRKSRC}/tests/exec_test.sh
-	${CHMOD} ${BINMODE} ${WRKSRC}/tests/exec_test.sh
-	(cd ${WRKSRC}/tests && ./exec_test.sh ||:)
+	(cd ${WRKSRC} && ${SETENV} KEYWORDS_DIR=/xports/Mk/Keywords ${MAKE_CMD} kyua-test)
