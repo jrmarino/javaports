@@ -1,7 +1,12 @@
 share/man/man5/rvn-keywords.5.gz
-share/man/man5/rvn-script.5.gz
+share/man/man5/rvn-lua-scripts.5.gz
+share/man/man5/rvn-scripts.5.gz
 share/man/man8/rvn-alias.8.gz
 share/man/man8/rvn-config.8.gz
 share/man/man8/rvn-create.8.gz
 share/man/man8/rvn-info.8.gz
+share/man/man8/rvn-install.8.gz
+share/man/man8/rvn-shell.8.gz
+share/man/man8/rvn-shlib.8.gz
+share/man/man8/rvn-which.8.gz
 share/man/man8/rvn.8.gz
