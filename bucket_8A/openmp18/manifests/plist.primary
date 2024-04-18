@@ -1,0 +1,6 @@
+lib/libarcher.so
+lib/libgomp.so
+lib/libiomp5.so
+lib/libomp.so
+lib/libomptarget.so
+lib/libomptarget.so.%%LLVM_MAJORMIN%%
