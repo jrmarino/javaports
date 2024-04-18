@@ -1,6 +1,7 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
-DEF[LLVMBASE]=		llvm
-DEF[CLANGBASE]=		clang
+DEF[LLVMBASE]=		llvm17
+DEF[CLANGBASE]=		clang17
+DEF[SPIRVBASE]=		spirv-llvm-translator17
 DEF[PORTVERSION]=	${LLVM_VERSION}
 # ----------------------------------------------------------------------------
 
@@ -32,8 +33,8 @@ BUILD_DEPENDS=		libedit:single:standard
 			${LLVMBASE}:dev:standard
 			${LLVMBASE}:tools:standard
 			${CLANGBASE}:complete:standard
-			spirv-llvm-translator:primary:standard
-			spirv-llvm-translator:dev:standard
+			${SPIRVBASE}:primary:standard
+			${SPIRVBASE}:dev:standard
 # #			rocm-device-libs:single:standard
 
 USES=			python:build cmake
