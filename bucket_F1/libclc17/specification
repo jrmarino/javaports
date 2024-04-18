@@ -1,3 +1,4 @@
+DEF[NAMEBASE]=		libclc17
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
 DEF[LLVMBASE]=		llvm17
 DEF[CLANGBASE]=		clang17
@@ -5,7 +6,7 @@ DEF[SPIRVBASE]=		spirv-llvm-translator17
 DEF[PORTVERSION]=	${LLVM_VERSION}
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libclc17
+NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
