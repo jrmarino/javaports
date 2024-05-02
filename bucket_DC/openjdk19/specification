@@ -19,7 +19,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main ravendist
 SITES[main]=		GITHUB/battleblow:jdk19u:${RELEASE_TAG}
-SITES[ravendist]=	https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+SITES[ravendist]=	https://leaf.dragonflybsd.org/~marino/raven-distfiles/openjdk/18/
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		bootstrap-openjdk-18.0.2-FreeBSD-amd64.tzst:ravendist
 DISTFILE[3]=		bootstrap-openjdk-18.0.2-dragonfly-x86_64.tzst:ravendist
