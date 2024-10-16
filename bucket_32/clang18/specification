@@ -28,7 +28,7 @@ DISTFILE[2]=		clang-tools-extra-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2 3
 
-SPKGS[std]=		set compiler extra dynlibs
+SPKGS[std]=		set compiler extra dynlibs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
