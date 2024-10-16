@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.21.6
 NAMEBASE=		go121
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Go programming language compiler
+VARIANTS=		std
+SDESC[std]=		Go programming language compiler
 HOMEPAGE=		https://golang.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
 DISTFILE[2]=		freebsd-x86-64-go119.tar.zst:ravdist
 DF_INDEX=		1
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	BOOT_RP FREEBSD
 OPTIONS_STANDARD=	BOOT_RP FREEBSD
@@ -34,7 +34,7 @@ FPC_EQUIVALENT=		lang/go121
 
 NOT_FOR_ARCH=		aarch64
 
-BUILD_DEPENDS=		bash:primary:standard
+BUILD_DEPENDS=		bash:primary:std
 
 USES=			cpe shebangfix
 CPE_VENDOR=		golang
@@ -56,7 +56,7 @@ DISTNAME=		go
 PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 
 [BOOT_RP].DESCRIPTION=			Bootstrap is Ravenports go119 package
-[BOOT_RP].BUILD_DEPENDS_ON=		go119:single:standard
+[BOOT_RP].BUILD_DEPENDS_ON=		go119:single:std
 
 [FREEBSD].DESCRIPTION=			Bootstrap is externally packaged go119
 [FREEBSD].DF_INDEX_ON=			2

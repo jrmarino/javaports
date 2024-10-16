@@ -12,8 +12,8 @@ DEF[NAMEBASE]=		openjdk${JDK_MAJOR_VER}
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		java devel
-VARIANTS=		standard
-SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
+VARIANTS=		std
+SDESC[std]=		OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
 HOMEPAGE=		https://openjdk.org/
 CONTACT=		nobody
 
@@ -35,7 +35,7 @@ DISTFILE[8]=		bootstrap-jdk-1.17.0.3.7-netbsd-9-amd64-20220515.tar.xz:bootnet
 DISTFILE[9]=		netbsd64-javac.tar.gz:ravendist
 DF_INDEX=		1
 
-SPKGS[standard]=	complete primary legal man examples
+SPKGS[std]=		set primary legal man examples
 
 OPTIONS_AVAILABLE=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
 OPTIONS_STANDARD=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
@@ -57,22 +57,22 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		java/openjdk18
 
-BUILD_DEPENDS=		alsa-lib:dev:standard
-			fontconfig:dev:standard
-			freetype:dev:standard
-			harfbuzz:dev:standard
-			lcms2:dev:standard
-			bash:primary:standard
-			zip:single:standard
-			cups:dev:standard
-			ccache:primary:standard
-BUILDRUN_DEPENDS=	alsa-lib:primary:standard
-			fontconfig:primary:standard
-			freetype:primary:standard
-			harfbuzz:primary:standard
-			lcms2:primary:standard
-			cups:primary:standard
-RUN_DEPENDS=		xorg-truetype-fonts:single:standard
+BUILD_DEPENDS=		alsa-lib:dev:std
+			fontconfig:dev:std
+			freetype:dev:std
+			harfbuzz:dev:std
+			lcms2:dev:std
+			bash:primary:std
+			zip:single:std
+			cups:dev:std
+			ccache:primary:std
+BUILDRUN_DEPENDS=	alsa-lib:primary:std
+			fontconfig:primary:std
+			freetype:primary:std
+			harfbuzz:primary:std
+			lcms2:primary:std
+			cups:primary:std
+RUN_DEPENDS=		xorg-truetype-fonts:single:std
 
 USES=			cpe jpeg gif png gmake pkgconfig zlib
 			autoreconf:build

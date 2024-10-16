@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.19.13
 NAMEBASE=		go119
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Go programming language compiler
+VARIANTS=		std
+SDESC[std]=		Go programming language compiler
 HOMEPAGE=		https://golang.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://golang.org/dl/
 DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,7 +26,7 @@ FPC_EQUIVALENT=		lang/go119
 
 NOT_FOR_ARCH=		aarch64
 
-BUILD_DEPENDS=		go14:single:standard
+BUILD_DEPENDS=		go14:single:std
 
 USES=			cpe shebangfix
 CPE_VENDOR=		golang

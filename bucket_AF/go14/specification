@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.4.3
 NAMEBASE=		go14
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Bootstrap compiler for modern golang
+VARIANTS=		std
+SDESC[std]=		Bootstrap compiler for modern golang
 HOMEPAGE=		https://golang.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://golang.org/dl/
 DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
