@@ -1,8 +1,9 @@
-DEF[NAMEBASE]=		libcxx18
-DEF[LLVMBASE]=		llvm18
-DEF[CLANGBASE]=		clang18
-DEF[LLVMUNWIND]=	llvm-libunwind18
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM18_VERSION)
+DEF[NAMEBASE]=		libcxx19
+DEF[LLVMBASE]=		llvm19
+DEF[CLANGBASE]=		clang19
+DEF[LLVMUNWIND]=	llvm-libunwind19
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
