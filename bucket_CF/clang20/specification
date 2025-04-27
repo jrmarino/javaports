@@ -9,6 +9,7 @@ DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GXX_INCLUDE]=	toolchain/ravensys-gcc/include/c++/${GCC_VERSION}
 DEF[GCC_TARGET_LIB]=	toolchain/ravensys-gcc/lib/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[DSUBDIR]=		llvm20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -26,6 +27,7 @@ SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${L
 DISTFILE[1]=		clang-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		clang-tools-extra-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1 2 3
 
 SPKGS[std]=		set compiler extra dynlibs man

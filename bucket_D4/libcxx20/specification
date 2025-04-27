@@ -1,8 +1,9 @@
-DEF[NAMEBASE]=		libcxx19
-DEF[LLVMBASE]=		llvm19
-DEF[CLANGBASE]=		clang19
-DEF[LLVMUNWIND]=	llvm-libunwind19
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[NAMEBASE]=		libcxx20
+DEF[LLVMBASE]=		llvm20
+DEF[CLANGBASE]=		clang20
+DEF[LLVMUNWIND]=	llvm-libunwind20
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
+DEF[DSUBDIR]=		llvm20
 # Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
@@ -14,12 +15,13 @@ SDESC[std]=		LLVM C++ standard library
 HOMEPAGE=		https://libcxx.llvm.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main libc
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
 DISTFILE[1]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		libcxxabi-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[4]=		runtimes-${LLVM_VERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1 2 3 4
 
 SPKGS[std]=		set primary dev abi experimental
@@ -33,6 +35,8 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
 			CUSTOM2:{{WRKSRC}}/projects/libcxxabi/LICENSE.TXT
 LICENSE_SCHEME=		multi
+
+# BROKEN[all]=		Requires llvm libc which is unstable and therefore not packaged
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
 			${CLANGBASE}:set:std

@@ -5,6 +5,7 @@ DEF[PORTVERSION]=	20.1.1
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 DEF[HEAD_TAG]=		vulkan-sdk-1.4.309.0
 DEF[MAJORMIN]=		${PORTVERSION:R}
+DEF[DSUBDIR]=		llvm20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -20,6 +21,7 @@ SITES[main]=		GITHUB/KhronosGroup:SPIRV-LLVM-Translator:${RELEASE_TAG}
 SITES[headers]=		GITHUB/KhronosGroup:SPIRV-Headers:${HEAD_TAG}
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:headers
+DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev
