@@ -15,7 +15,7 @@ SDESC[std]=		LLVM C++ standard library
 HOMEPAGE=		https://libcxx.llvm.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main libc
+DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
 DISTFILE[1]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		libcxxabi-${LLVM_VERSION}.src.tar.xz:main
@@ -36,7 +36,7 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
 			CUSTOM2:{{WRKSRC}}/projects/libcxxabi/LICENSE.TXT
 LICENSE_SCHEME=		multi
 
-# BROKEN[all]=		Requires llvm libc which is unstable and therefore not packaged
+BROKEN[all]=		Requires llvm libc which is unstable and therefore not packaged
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
 			${CLANGBASE}:set:std
