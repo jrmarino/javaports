@@ -1,10 +1,10 @@
-DEF[NAMEBASE]=		libclc20
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
-DEF[LLVMBASE]=		llvm20
-DEF[CLANGBASE]=		clang20
-DEF[SPIRVBASE]=		spirv-llvm-translator20
+DEF[NAMEBASE]=		libclc21
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
+DEF[LLVMBASE]=		llvm21
+DEF[CLANGBASE]=		clang21
+DEF[SPIRVBASE]=		spirv-llvm-translator21
 DEF[PORTVERSION]=	${LLVM_VERSION}
-DEF[DSUBDIR]=		llvm20
+DEF[DSUBDIR]=		llvm21
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
