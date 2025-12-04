@@ -1,0 +1,64 @@
+DEF[NAMEBASE]=		libcxx21
+DEF[LLVMBASE]=		llvm21
+DEF[CLANGBASE]=		clang21
+DEF[LLVMUNWIND]=	llvm-libunwind21
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
+DEF[DSUBDIR]=		llvm21
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${LLVM_VERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		LLVM C++ standard library
+HOMEPAGE=		https://libcxx.llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+DISTFILE[1]=		llvm-project-${LLVM_VERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
+DF_INDEX=		1
+
+SPKGS[std]=		set primary dev abi unwind experimental
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary CUSTOM2:abi CUSTOM3:unwind
+LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
+			CUSTOM2:"University of Illinois/NCSA Open Source License"
+			CUSTOM3:"University of Illinois/NCSA Open Source License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/libcxx/LICENSE.TXT
+			CUSTOM2:{{WRKSRC}}/libcxxabi/LICENSE.TXT
+			CUSTOM3:{{WRKSRC}}/libunwind/LICENSE.TXT
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		${CLANGBASE}:set:std
+			${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+
+EXRUN[abi]=		unwind
+EXRUN[primary]=		unwind
+
+USES=			cpe cmake ninja python:build cclibs:primary,abi,unwind
+CPE_VENDOR=		llvm
+CPE_PRODUCT=		llvm
+CMAKE_BUILD_TYPE=	Release
+CMAKE_ARGS=		-DLLVM_ENABLE_RUNTIMES:STRING=libcxx\;libcxxabi\;libunwind
+			-Wno-dev
+BUILD_TARGET=		cxx cxxabi unwind
+INSTALL_TARGET=		install-cxx
+			install-cxxabi
+			install-unwind
+DISTNAME=		llvm-project-${LLVM_VERSION}.src
+CMAKE_SOURCE_PATH=	{{WRKSRC}}/runtimes
+
+do-install:
+	(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${INSTALL_TARGET})
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++.so.1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++abi.so.1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libunwind.so.1
