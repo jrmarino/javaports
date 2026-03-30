@@ -14,7 +14,6 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		llvm-project-${LLVM_VERSION}.src.tar.xz:main
 DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1
