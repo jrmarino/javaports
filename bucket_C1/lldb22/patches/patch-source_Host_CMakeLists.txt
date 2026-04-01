@@ -1,0 +1,22 @@
+--- source/Host/CMakeLists.txt.orig	2026-03-23 18:46:22 UTC
++++ source/Host/CMakeLists.txt
+@@ -123,12 +123,18 @@ else()
+         android/HostInfoAndroid.cpp
+         )
+     endif()
+-  elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
++  elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
+     add_host_subdirectory(freebsd
+       freebsd/Host.cpp
+       freebsd/HostInfoFreeBSD.cpp
+       )
+ 
++  elseif (CMAKE_SYSTEM_NAME MATCHES "DragonFly")
++    add_host_subdirectory(dragonfly
++      dragonfly/Host.cpp
++      dragonfly/HostInfoDragonFly.cpp
++      )
++
+   elseif (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+     add_host_subdirectory(netbsd
+       netbsd/HostNetBSD.cpp
