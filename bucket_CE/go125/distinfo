@@ -4,3 +4,4 @@ e988d4a2446ac7fe3f6daa089a58e9936a52a381355adec1c8983230a8d6c59e     31991986 go
 f9ce7cde093aca17557fa87e1fe56d13a22e1a6589aaa1df47b87db15d82159f     57778898 bootstrap-golang-1.23.7-midnightbsd-x86_64.tzst
 771f79e98358c20607fef82f5affe67ee112d4ec3d7a29f5e9d932d2a3c4815f     57456767 bootstrap-golang-1.23.7-netbsd-x86_64.tzst
 8689c7d3e2dfe824dd0d414e0febceeaec0e3684fd6fecf416a1915f427a5f36     57831905 bootstrap-golang-1.23.7-freebsd-x86_64.tzst
+09df3f13e8d1def00d51410c31c40c803c6246ce7d3d530bddb180fab96662e8     52920759 bootstrap-golang-1.22.12-sunos-x86_64.tzst
