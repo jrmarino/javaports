@@ -1,0 +1,125 @@
+DEF[PORTVERSION]=	1.22.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		go122
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		Go programming language compiler
+HOMEPAGE=		https://golang.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main ravdist
+SITES[main]=		http://golang.org/dl/
+SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/golang/
+DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
+DISTFILE[2]=		bootstrap-golang-1.22.2-dragonfly-x86_64.tzst:ravdist
+DISTFILE[3]=		bootstrap-golang-1.22.2-Linux-amd64.tzst:ravdist
+DISTFILE[4]=		bootstrap-golang-1.22.2-MidnightBSD-amd64.tzst:ravdist
+DISTFILE[5]=		bootstrap-golang-1.22.2-NetBSD-amd64.tzst:ravdist
+DISTFILE[6]=		bootstrap-golang-1.22.2-FreeBSD-amd64.tzst:ravdist
+DF_INDEX=		1
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT PORTBOOT
+OPTIONS_STANDARD=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT PORTBOOT
+OPTGROUP_RADIO=		SYSTEM
+OPTDESCR[SYSTEM]=	Operating System
+OPTGROUP[SYSTEM]=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT
+
+OPT_ON[dragonfly]=	DRAGONFLY
+OPT_ON[linux]=		LINUX
+OPT_ON[freebsd]=	FREEBSD
+OPT_ON[midnightbsd]=	MIDNIGHT
+OPT_ON[netbsd]=		NETBSD
+OPT_ON[sunos]=		SUNOS PORTBOOT
+OPT_ON[darwin]=		MACOS PORTBOOT
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		lang/go
+
+NOT_FOR_ARCH=		aarch64
+
+BUILD_DEPENDS=		bash:primary:std
+BUILDRUN_DEPENDS=	nss:caroot:std
+
+USES=			cpe shebangfix
+CPE_VENDOR=		golang
+CPE_PRODUCT=		go
+SHEBANG_LANG=		bash
+			perl
+SHEBANG_FILES=		src/*.bash
+			lib/time/*.bash
+			misc/wasm/go_js_wasm_exec
+			src/regexp/syntax/*.pl
+			src/crypto/internal/boring/build.sh
+			src/go/doc/comment/mkstd.sh
+			src/runtime/race/mkcgo.sh
+			src/crypto/internal/boring/*.sh
+			src/cmd/vendor/golang.org/x/sys/windows/*.bash
+SHEBANG_OLD_BASH=	"/usr/bin/env bash"
+SHEBANG_NEW_BASH=	{{SH}}
+DISTNAME=		go
+PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
+
+[DRAGONFLY].DESCRIPTION=		Build for DragonFly BSD
+[FREEBSD].DESCRIPTION=			Build for FreeBSD
+[LINUX].DESCRIPTION=			build for Linux
+[SUNOS].DESCRIPTION=			build for Solaris
+[MACOS].DESCRIPTION=			build for MacOS
+[NETBSD].DESCRIPTION=			build for NetBSD
+[MIDNIGHT].DESCRIPTION=			build for MidnightBSD
+[PORTBOOT].DESCRIPTION=			Bootstrap with older golang in Ravenports
+
+[DRAGONFLY].DF_INDEX_ON=		2
+[LINUX].DF_INDEX_ON=			3
+[MIDNIGHT].DF_INDEX_ON=			4
+[NETBSD].DF_INDEX_ON=			5
+[FREEBSD].DF_INDEX_ON=			6
+
+[PORTBOOT].BUILD_DEPENDS_ON=		go121:single:std
+[PORTBOOT].MAKEFILE_ON=			BOOTSTRAP_DIR={{LOCALBASE}}/go121
+					PREPEND_PATH={{LOCALBASE}}/go121/bin
+[PORTBOOT].MAKEFILE_OFF=		BOOTSTRAP_DIR={{WRKDIR}}/bootstrap/go
+					PREPEND_PATH={{WRKDIR}}/bootstrap/go/bin
+
+pre-configure-netbsd:
+	${REINPLACE_CMD} -i'' -e '/GOFLAGS=-trimpath/d' ${WRKSRC}/src/cmd/dist/build.go
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|type -ap |type |' ${WRKSRC}/src/make.bash
+	${REINPLACE_CMD} -e 's|^if ulimit -T|false \&\& &|' ${WRKSRC}/src/run.bash
+	${FIND} ${WRKSRC} -name '*.orig' -delete
+	${FIND} ${WRKSRC} -name '*.bak' -delete
+	${RM} ${WRKSRC}/src/*.rc ${WRKSRC}/include/plan9/mklibc.rc
+	${FIND} ${WRKSRC} -type d -name testdata | ${XARGS} ${RM} -r
+
+do-build:
+	cd ${WRKSRC}/src && ${SETENV} ${MAKE_ENV} \
+		XDG_CACHE_HOME=${WRKDIR} \
+		GOROOT_BOOTSTRAP=${BOOTSTRAP_DIR} \
+		GOROOT=${WRKSRC} \
+		GOROOT_FINAL=${PREFIX}/go \
+		GOBIN= GOARCH=${GOARCH} \
+		GOOS=${GOSYS} \
+		GO386=${GO386} \
+		CC=gcc \
+		bash -x make.bash -v
+
+do-install:
+	${CP} -a ${WRKSRC} ${STAGEDIR}${PREFIX}
+	${RM} -r ${STAGEDIR}${PREFIX}/go/pkg/obj
+	${RM} -r ${STAGEDIR}${PREFIX}/go/misc/cgo/testplugin/altpath
+.for f in go gofmt
+	${LN} -sf ../go/bin/${f} ${STAGEDIR}${PREFIX}/bin/${f}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${f}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/tool/${GOSYS}_${GOARCH}/*
+# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/bootstrap/bin/*
+	# remove test
+	${RM} -r ${STAGEDIR}${PREFIX}/go/test
+	${RM} -r ${STAGEDIR}${PREFIX}/go/src/cmd/cgo/internal/testplugin/altpath
