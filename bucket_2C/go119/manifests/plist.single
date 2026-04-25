@@ -1,8 +1,14 @@
 %%ONLY-DRAGONFLY%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
+%%ONLY-DRAGONFLY%%go119/pkg/%%opsys_ARCH%%/os/signal/internal/pty.a
 %%ONLY-FREEBSD%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
+%%ONLY-FREEBSD%%go119/pkg/%%opsys_ARCH%%/os/signal/internal/pty.a
 %%ONLY-LINUX%%go119/pkg/%%opsys_ARCH%%/runtime/internal/syscall.a
+%%ONLY-LINUX%%go119/pkg/%%opsys_ARCH%%/os/signal/internal/pty.a
 %%ONLY-MIDNIGHTBSD%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
+%%ONLY-MIDNIGHTBSD%%go119/pkg/%%opsys_ARCH%%/os/signal/internal/pty.a
 %%ONLY-NETBSD%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
+%%ONLY-NETBSD%%go119/pkg/%%opsys_ARCH%%/os/signal/internal/pty.a
+%%ONLY-SUNOS%%go119/pkg/solaris_amd64/vendor/golang.org/x/net/lif.a
 go119/CONTRIBUTING.md
 go119/LICENSE
 go119/PATENTS
@@ -581,7 +587,6 @@ go119/pkg/%%opsys_ARCH%%/os/exec.a
 go119/pkg/%%opsys_ARCH%%/os/signal.a
 go119/pkg/%%opsys_ARCH%%/os/user.a
 go119/pkg/%%opsys_ARCH%%/os/exec/internal/fdtest.a
-go119/pkg/%%opsys_ARCH%%/os/signal/internal/pty.a
 go119/pkg/%%opsys_ARCH%%/path/filepath.a
 go119/pkg/%%opsys_ARCH%%/reflect/internal/example1.a
 go119/pkg/%%opsys_ARCH%%/reflect/internal/example2.a
