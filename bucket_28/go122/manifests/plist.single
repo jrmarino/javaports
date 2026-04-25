@@ -146,6 +146,7 @@ go/src/bytes/boundary_test.go
 go/src/bytes/buffer.go
 go/src/bytes/buffer_test.go
 go/src/bytes/bytes.go
+go/src/bytes/bytes_js_wasm_test.go
 go/src/bytes/bytes_test.go
 go/src/bytes/compare_test.go
 go/src/bytes/example_test.go
@@ -1460,6 +1461,7 @@ go/src/cmd/link/internal/ld/lib.go
 go/src/cmd/link/internal/ld/link.go
 go/src/cmd/link/internal/ld/macho.go
 go/src/cmd/link/internal/ld/macho_combine_dwarf.go
+go/src/cmd/link/internal/ld/macho_update_uuid.go
 go/src/cmd/link/internal/ld/main.go
 go/src/cmd/link/internal/ld/msync_darwin_libc.go
 go/src/cmd/link/internal/ld/nooptcgolink_test.go
