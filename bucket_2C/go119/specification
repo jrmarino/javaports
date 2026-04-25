@@ -67,5 +67,5 @@ do-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/go119/pkg/obj
 	${RM} -r ${STAGEDIR}${PREFIX}/go119/misc/cgo/testplugin/altpath
 	${RM} -r ${STAGEDIR}${PREFIX}/go119/test
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/bin/go*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/pkg/tool/${GOSYS}_${GOARCH}/*

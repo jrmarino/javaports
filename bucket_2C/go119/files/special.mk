@@ -9,7 +9,7 @@ GOARCH=unknown
 .if ${OPSYS} == "MidnightBSD"
 GOSYS=freebsd
 .elif ${OPSYS} == "SunOS"
-GOSYS=solaris
+GOSYS=illumos
 .else
 GOSYS=${OPSYS:tl}
 .endif
