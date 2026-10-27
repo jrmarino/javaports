@@ -31,8 +31,7 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BROKEN[freebsd]=	Needs sha224.h header
-BROKEN[netbsd]=		missing headers from system root
+# BROKEN[netbsd]=		missing headers from system root
 
 BUILD_DEPENDS=		${LLVMBASE}:dev:std
 			${LLVMBASE}:tools:std
@@ -44,6 +43,8 @@ BR_DEPS[netbsd]=	libmd:primary:std
 B_DEPS[freebsd]=	libmd:dev:std
 BR_DEPS[freebsd]=	libmd:primary:std
 
+C_USES[netbsd]=		lua:5.4,build
+
 USES=			cpe cmake ninja zlib:build ncurses:build
 			python:build c++:single
 CPE_VENDOR=		llvm
@@ -51,7 +52,8 @@ CPE_PRODUCT=		llvm
 DISTNAME=		${WORKNAME}/compiler-rt
 PLIST_SUB=		OPSYSLC={{OPSYS:tl}}
 
-[SUNOS].DESCRIPTION=			Chooses linker based on SunOS
+VAR_OPSYS[netbsd]=	CXXFLAGS=-I{{LUA_INCDIR}}
+
 [SUNOS].BUILD_DEPENDS_OFF=		${LLDBASE}:primary:std
 [SUNOS].CMAKE_ARGS_OFF=			-DLLVM_USE_LINKER=lld
 
