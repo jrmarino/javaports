@@ -53,13 +53,8 @@ CMAKE_ARGS=		-DLIBOMP_FORTRAN_MODULES:BOOL=ON
 PLIST_SUB=		LLVM_MAJOR="${MAJOR}"
 			LLVM_MAJORMIN="${MAJORMIN}"
 
-[SUNOS].DESCRIPTION=			Chooses linker based on SunOS
 [SUNOS].BUILD_DEPENDS_OFF=		${LLDBASE}:primary:std
 [SUNOS].CMAKE_ARGS_OFF=			-DLLVM_USE_LINKER=lld
-
-post-extract:
-	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
-		${WRKSRC}/cmake/
 
 post-install:
 	${FIND} ${STAGEDIR}${PREFIX} -name "*.so" |\
